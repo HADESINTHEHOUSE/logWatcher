@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    p{
+      margin:0
+    }
+    p:nth-child(odd) {
+      background: skyblue;
+    }
+    
+    p:nth-child(even) {
+      background: wheat;
+    }
+
+
+ 
+
+  </style>
+</head>
+<body>
+  <div id="connect-status"></div>
+
+ <div id="mydiv">
+  
+ </div>
+
+
+<script src="/socket.io/socket.io.js" ></script>
+</script>
+<script >
+  const arr =[];
+  const socket = io.connect("http://localhost:3000/");
+
+socket.on("initial",function(data){
+  data.forEach(function(data){
+  document.querySelector('#mydiv').innerHTML+='<p>'+data+'</p>';
+
+  })
+})
+socket.on('change', function (msg) {
+  console.log(msg)
+  msg=msg.join(" ").trim();
+   
+  document.querySelector('#mydiv').innerHTML+='<p>'+msg+'</p>';
+
+  });
+</script>
+
+</body>
+</html>
